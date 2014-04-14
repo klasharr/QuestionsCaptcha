@@ -1,0 +1,144 @@
+<?php
+/**
+ * @file
+ * questionscaptcha.module
+ */
+
+module_load_include('inc', 'questionscaptcha', 'questionscaptcha');
+#module_load_include('inc', 'questionscaptcha', 'classes/QuestionsCaptcha');
+
+/**
+ * Implements hook_menu()
+ *
+ * @return array
+ */
+function questionscaptcha_menu() {
+
+  $items['admin/config/content/questionscaptcha'] = array(
+    'title' => 'Questions CAPTCHA',
+    'title callback' => 't',
+    'description' => t('Set up the questions CAPTCHA '),
+    'page callback' => array('drupal_get_form'),
+    'page arguments' => array('_form_questionscaptcha_settings'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'questionscaptcha.inc',
+  );
+
+  $items['admin/reports/ips'] = array(
+    'title' => 'Questions CAPTCHA rejects',
+    'title callback' => 't',
+    'page callback' => array('_page_questionscaptcha_reject_ip_addresses_list'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'questionscaptcha.inc',
+  );
+
+  $items['admin/reports/ips/group'] = array(
+    'title' => 'Grouped',
+    'title callback' => 't',
+    'page callback' => array('_page_questionscaptcha_reject_ip_addresses_list_group'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'questionscaptcha.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_form_alter()
+ * The goal is to alter the comment forms.
+ *
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function questionscaptcha_form_alter(&$form, &$form_state, $form_id) {
+
+  if (defined('MAINTENANCE_MODE') || user_access('bypass questions captcha')) {
+    return;
+  }
+  elseif
+  (in_array($form_id, array(
+    'comment_admin_overview',
+    'comment_multiple_delete_confirm',
+    'comment_confirm_delete',
+  ))
+  ) {
+    return;
+  }
+  elseif (!preg_match('/^comment_[a-z_]+$/', $form_id)) {
+    return;
+  }
+
+  $form['human_check'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Are you a real person?'),
+  );
+
+  $form['human_check']['intro'] = array(
+    '#markup' => t('Check each box if the statement is true.'),
+    '#prefix' => '<p><em>',
+    '#suffix' => '</p></em>',
+  );
+
+  $form['human_check'][QuestionsCaptcha::getCaptchaQuestionsCheckboxFormElementName()] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('True or false'),
+    '#required' => TRUE,
+    '#options' => QuestionsCaptcha::getCheckBoxElementData(),
+  );
+
+  $sElement = variable_get('questionscaptcha_honeypot', 'url');
+  $sElementFieldName = $sElement . '-textfield';
+  $form[$sElement] = array(
+    '#type' => 'textfield',
+    '#title' => t('Leave blank'),
+    '#size' => 30,
+    '#attributes' => array('autocomplete' => 'off'),
+    '#prefix' => '<div class="' . $sElementFieldName . '">',
+    '#suffix' => '</div>',
+    '#attached' => array(
+      'css' => array(
+        '.' . $sElementFieldName . ' { display: none !important; }' => array('type' => 'inline'),
+      ),
+    ),
+  );
+  $form['#validate'][] = '_form_questionscaptcha_captcha_validate';
+  $form['#submit'][] = '_form_questionscaptcha_captcha_submit';
+}
+
+/**
+ * Implements hook_help()
+ *
+ * @param $path
+ * @param $arg
+ * @return string
+ */
+function questionscaptcha_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#questionscaptcha':
+      $sOutput = '';
+      $sOutput .= '<h3>' . t('About questions CAPTCHA') . '</h3>';
+      $sOutput .= '<p>' . t('This module adds a simple CAPTCHA form element to comment forms offering the user a set of ' .
+        'simple questions that he/she can check as TRUE or FALSE. It also adds a hidden honeypot field which has a configurable name.') . '<p>';
+      $sOutput .= '<p>' . t('To let particular user roles bypass the CAPTCHA, give them the \'bypass CAPTCHA\' permission.') . '</p>';
+      $sOutput .= '<p>' . t('You can choose from a set of ten pre-written questions, decide how many to show to the user ' .
+        ', add your own or use only your own. As CAPTCHAs go, it is pretty basic but I from my experience it will still ' .
+        'block most comment spammers and it is something different. My goal is to add this as an extension to the CAPTCHA module, '.
+        'rather than have it as a standalone module.') . '</p>';
+      return $sOutput;
+  }
+}
+
+/**
+ * Implements hook_permission()
+ *
+ * @return array
+ */
+function questionscaptcha_permission() {
+  return array(
+    'bypass questions captcha' => array(
+      'title' => t('Bypass questions CAPTCHA'),
+      'description' => t('Enable this to allow users to bypass the questions CAPTCHA.'),
+    ),
+  );
+}

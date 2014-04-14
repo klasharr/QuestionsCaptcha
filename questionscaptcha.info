@@ -1,0 +1,7 @@
+name = Questions CAPTCHA
+description = Adds a question based CAPTCHA and honeypot field which can be used on comment forms to fox spambots.
+core = 7.x
+package = "Spam control"
+version = "7.x-1.x-dev"
+configure = admin/config/content/questionscaptcha
+files[] = classes/QuestionsCaptcha.inc
