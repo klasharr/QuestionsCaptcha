@@ -5,7 +5,6 @@
  */
 
 module_load_include('inc', 'questionscaptcha', 'questionscaptcha');
-#module_load_include('inc', 'questionscaptcha', 'classes/QuestionsCaptcha');
 
 /**
  * Implements hook_menu()
@@ -53,6 +52,7 @@ function questionscaptcha_menu() {
  */
 function questionscaptcha_form_alter(&$form, &$form_state, $form_id) {
 
+  // deliberately split if for readability
   if (defined('MAINTENANCE_MODE') || user_access('bypass questions captcha')) {
     return;
   }
@@ -65,7 +65,7 @@ function questionscaptcha_form_alter(&$form, &$form_state, $form_id) {
   ) {
     return;
   }
-  elseif (!preg_match('/^comment_[a-z_]+$/', $form_id)) {
+  elseif (!preg_match('/^(comment|contact)_[a-z_]+$/', $form_id)) {
     return;
   }
 

@@ -1,24 +1,17 @@
 Questions CAPTCHA module for Drupal 7
 =====================================
 
-This module adds a simple CAPTCHA form element to comment forms offering the user a set
-of 'simple questions that he/she can check as TRUE or FALSE. Really they are statements rather than
-questions. It also adds a hidden honeypot field which has a configurable name.
+This module adds a simple CAPTCHA form element to comment and contact forms offering the user a set of 'simple questions that he/she can check as TRUE or FALSE. Really they are statements rather than questions. It also adds a hidden honeypot field which has a configurable name.
 
 To let particular user roles bypass the CAPTCHA, give them the 'bypass CAPTCHA' permission.
 
-You can choose from a set of ten pre-written questions, decide how many to show to the user,
-add your own or use only your own via a api hook. As CAPTCHAs go, it is pretty basic but I
-from my experience it will still block most comment spammers and it is something different.
-My goal is to add this as an extension to the CAPTCHA module, rather than have it as a
-standalone module
+You can choose from a set of ten pre-written questions, decide how many to show to the user, add your own or use only your own via a api hook. As CAPTCHAs go, it is pretty basic but from my experience it will still block most comment spammers and it is something different.
 
-But, it works, is a bit of fun and gives some Drupal APIs a bit of a workout. See it in action on
-my own site; http://www.klausharris.de , look at any page where there is a comment form.
+But, it works, is a bit of fun and gives some Drupal APIs a bit of a workout. See it in action on my own site; http://www.klausharris.de , look at any page where there is a comment form.
 
 See it in action
 -----------------
-[http://www.klausharris.de](http://www.klausharris.de)
+http://www.klausharris.de
 
 
 Configure it on your own Drupal site
