@@ -1,7 +1,7 @@
 Questions CAPTCHA module for Drupal 7
 =====================================
 
-This module adds a simple CAPTCHA form element to comment and contact forms offering the user a set of 'simple questions that he/she can check as TRUE or FALSE. Really they are statements rather than questions. It also adds a hidden honeypot field which has a configurable name.
+This module adds a simple CAPTCHA form element to comment forms offering the user a set of 'simple questions that he/she can check as TRUE or FALSE. Really they are statements rather than questions. It also adds a hidden honeypot field which has a configurable name.
 
 To let particular user roles bypass the CAPTCHA, give them the 'bypass CAPTCHA' permission.
 

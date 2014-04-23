@@ -65,7 +65,7 @@ function questionscaptcha_form_alter(&$form, &$form_state, $form_id) {
   ) {
     return;
   }
-  elseif (!preg_match('/^(comment|contact)_[a-z_]+$/', $form_id)) {
+  elseif (!preg_match('/^comment_[a-z_]+$/', $form_id)) {
     return;
   }
 
