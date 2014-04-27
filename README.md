@@ -1,5 +1,5 @@
-Questions CAPTCHA module for Drupal 7
-=====================================
+Questions CAPTCHA module for Drupal7
+====================================
 
 ## Description 
 
@@ -42,8 +42,12 @@ failed attempts, once this is done, I'll push it as a proper project on Drupal.o
 ## Related Drupal 7 CAPTCHA modules
 
 [https://drupal.org/project/captcha](https://drupal.org/project/captcha)
+
 [https://drupal.org/project/mollom](https://drupal.org/project/mollom)
+
 [https://drupal.org/project/antispam](https://drupal.org/project/antispam)
+
 [https://drupal.org/project/recaptcha](https://drupal.org/project/recaptcha)
+
 [https://drupal.org/project/honeypot](https://drupal.org/project/honeypot)
 
