@@ -37,7 +37,7 @@ function _form_questionscaptcha_settings($form, &$form_state) {
 
   $aQuestionsCntOptions = array();
   // We'll allow a maximum of ten questions. In reality, you would probably display no more than three.
-  for ($i = 0; $i < 10; $i++) {
+  for ($i = 2; $i < 10; $i++) {
     $aQuestionsCntOptions[$i] = $i;
   }
 

@@ -83,7 +83,6 @@ function questionscaptcha_form_alter(&$form, &$form_state, $form_id) {
   $form['human_check'][QuestionsCaptcha::getCaptchaQuestionsCheckboxFormElementName()] = array(
     '#type' => 'checkboxes',
     '#title' => t('True or false'),
-    '#required' => TRUE,
     '#options' => QuestionsCaptcha::getCheckBoxElementData(),
   );
 
