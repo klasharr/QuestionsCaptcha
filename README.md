@@ -11,16 +11,7 @@ To let particular user roles bypass the CAPTCHA, give them the 'bypass CAPTCHA' 
 
 You can choose to display any number from a set of ten pre-written questions and add or use your own or  via an api hook. As CAPTCHAs go, it is pretty basic but from my experience it will still block most comment spammers and it is something different.
 
-But, it works, is a bit of fun and gives some Drupal APIs a bit of a workout. See it in action on my own site; [http://www.klausharris.de](http://www.klausharris.de) , look at any page where there is a comment form.
-
-## Demo
-
-[http://klausharris.de/comment/reply/342#comment-form](http://klausharris.de/comment/reply/342#comment-form)
-
-
-## Screenshots
-
-[http://klausharris.de/code/questionscaptcha](http://klausharris.de/code/questionscaptcha)
+But, it works, is a bit of fun and gives some Drupal APIs a bit of a workout. 
 
 ## Requirements
 
@@ -32,11 +23,12 @@ Install to the modules directory, usually this is sites/all/modules, then config
 
 ## Todo
 
+But unlikely to happen.
+
 1. A bit of extra functionality is needed when viewing failed attempts plus clearing out the list of
 failed attempts, once this is done, I'll push it as a proper project on Drupal.org
 2. Possibly write it as a plugin for the Drupal CAPTCHA module.
 3. Possibly make it work for more forms such as the contact form.
-4. Add to Drupal.org - in progress
 
 
 ## Related Drupal 7 CAPTCHA modules
